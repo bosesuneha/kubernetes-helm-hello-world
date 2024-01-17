@@ -1,4 +1,12 @@
-FROM busybox
-ADD app/index.html /www/index.html
-EXPOSE 80
-CMD httpd -p 80 -h /www; tail -f /dev/null
+FROM python:3.7-slim
+ENV PORT 8000
+EXPOSE 8000
+WORKDIR /usr/src/app
+
+COPY requirements.txt ./
+RUN pip install --no-cache-dir -r requirements.txt
+
+COPY . .
+
+ENTRYPOINT ["python"]
+CMD ["app.py"]
