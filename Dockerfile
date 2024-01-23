@@ -1,12 +1,12 @@
-FROM golang:1.18
-ENV PORT 8080
-EXPOSE 8080
+FROM python:3.11-slim
+ENV PORT 8000
+EXPOSE 8000
+WORKDIR /usr/src/app
 
-WORKDIR /go/src/app
+COPY requirements.txt ./
+RUN pip install --no-cache-dir -r requirements.txt
+
 COPY . .
 
-RUN go get -d -v ./...
-RUN go build -v -o app ./...
-RUN mv ./app /go/bin/
-
-CMD ["app"]
+ENTRYPOINT ["python"]
+CMD ["app.py"]
