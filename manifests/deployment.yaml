@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: test-workflow-sunehabose
+  labels:
+    app: test-workflow-sunehabose
+    kubernetes.azure.com/generator: devhub
+  namespace: namespace-workflow-1717014437168
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: test-workflow-sunehabose
+  template:
+    metadata:
+      labels:
+        app: test-workflow-sunehabose
+    spec:
+      containers:
+        - name: test-workflow-sunehabose
+          image: acrworkflow1717014437168.azurecr.io/image-workflow-1717014437168:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 80
